@@ -1,1 +1,0 @@
-"acg.exe" "debug" "Penis.hlsl"
