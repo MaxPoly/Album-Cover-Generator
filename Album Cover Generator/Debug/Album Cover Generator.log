@@ -1,7 +1,8 @@
-﻿Build started 10/18/2015 1:35:56 PM.
+﻿Build started 10/18/2015 3:12:41 PM.
      1>Project "C:\Users\Austin\Documents\Album Cover Generator\Album Cover Generator\Album Cover Generator.vcxproj" on node 2 (Build target(s)).
-     1>ResourceCompile:
-         C:\Program Files (x86)\Windows Kits\8.1\bin\x86\rc.exe /D _UNICODE /D UNICODE /l"0x0409" /nologo /fo"Debug\Resource.res" Resource.rc 
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /I"C:\Code Base" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D ZLIB_WINAPI /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Main.cpp
+         Main.cpp
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Austin\Documents\Album Cover Generator\Debug\acg.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Code Base" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\Austin\Documents\Album Cover Generator\Debug\acg.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Austin\Documents\Album Cover Generator\Debug\acg.lib" /MACHINE:X86 Debug\Resource.res
          Debug\Main.obj
@@ -10,4 +11,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.66
+Time Elapsed 00:00:02.04

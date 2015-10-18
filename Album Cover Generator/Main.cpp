@@ -269,8 +269,6 @@ int wmain(int argc, wchar_t** argv) {
 	TextureDesc.Usage = D3D11_USAGE_DYNAMIC;
 	TextureDesc.Width = (UINT)(IMAGE_WIDTH_SSAA);
 
-	unsigned char* NoisePixels = new unsigned char[PIXELS_SSAA * 4];
-
 	hr = Device->CreateTexture2D (
 		&TextureDesc,
 		nullptr,
@@ -448,14 +446,29 @@ int wmain(int argc, wchar_t** argv) {
 
 		std::cout << "Generating noise texture..." << std::endl;
 
+		D3D11_MAPPED_SUBRESOURCE map = { 0 };
+
+		hr = Context->Map (
+			NoiseTexture,
+			0,
+			D3D11_MAP_WRITE_DISCARD,
+			NULL,
+			&map
+		);
+
+		if (FAILED(hr)) {
+			std::cout << "Failed to map noise image to cpu - HRESULT 0x" << (void*)hr << std::endl;
+			system("pause");
+			return -1;
+		}
+
+		unsigned char* NoisePixels = (unsigned char*)(map.pData);
+
 		for (int j = 0; j < PIXELS_SSAA * 4; j++) {
 			NoisePixels[j] = rand() % 256;
 		}
 
-		D3D11_SUBRESOURCE_DATA NoiseData;
-		NoiseData.pSysMem = NoisePixels;
-		NoiseData.SysMemPitch = 4 * UINT(IMAGE_WIDTH_SSAA);
-		NoiseData.SysMemSlicePitch = 0;
+		Context->Unmap(NoiseTexture, 0);
 
 		bool ImageA = true;
 		ID3D11RenderTargetView* RTV = TargetA;
@@ -498,7 +511,7 @@ int wmain(int argc, wchar_t** argv) {
 
 		Context->CopyResource(ReadBuffer, ResolveTexture);
 
-		D3D11_MAPPED_SUBRESOURCE map = { 0 };
+		ZeroMemory(&map, sizeof(map));
 
 		hr = Context->Map (
 			ReadBuffer,
@@ -509,7 +522,7 @@ int wmain(int argc, wchar_t** argv) {
 		);
 
 		if (FAILED(hr)) {
-			std::cout << "Failed to map image to cpu - HRESULT 0x" << hr << std::endl;
+			std::cout << "Failed to map image to cpu - HRESULT 0x" << (void*)hr << std::endl;
 			system("pause");
 			return -1;
 		}
@@ -568,8 +581,6 @@ int wmain(int argc, wchar_t** argv) {
 
 		delete bitmap;
 	}
-
-	delete[] NoisePixels;
 
 	GlobalFree(byteArray);
 
